@@ -35,3 +35,31 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+/* Código extraído de https://www.urianviera.com/reactjs/react-router-dom-guia
+import { useNavigate } from 'react-router-dom';
+
+function LoginPage() {
+const navigate = useNavigate();
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  // Lógica de login aquí
+  try {
+    await loginUser();
+    navigate('/dashboard', { 
+      replace: true,
+      state: { message: 'Login exitoso' } 
+    });
+  } catch (error) {
+    console.error('Error en login:', error);
+  }
+};
+
+return (
+  <form onSubmit={handleLogin}>
+    {// Formulario aquí }
+    </form>
+);
+}
+*/
