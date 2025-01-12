@@ -20,34 +20,24 @@ function RootLayout() {
   return (
     <>
       <header>
-        <nav>
-          <ul>
-            <li>
-              <NavLink
-                to="/login"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                Login (si)
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                Usuarios
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/providers"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                Proveedores
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+        <NavLink
+          to="/login"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Login (si)
+        </NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Usuarios
+        </NavLink>
+        <NavLink
+          to="/providers"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Proveedores
+        </NavLink>
       </header>
 
       <footer>

@@ -10,9 +10,24 @@ import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 //create your first component
 const Home = () => {
   const users = [
-    { id: 1, fullName: "John Doe", company: "Apple" },
-    { id: 2, fullName: "Jane Doe", company: "Google" },
-    { id: 3, fullName: "James Smith", company: "Microsoft" },
+    {
+      id: 1,
+      fullName: "John Doe",
+      email: "john.doe@example.com",
+      phoneNumber: "123-456-7890",
+    },
+    {
+      id: 2,
+      fullName: "Jane Smith",
+      email: "jane.smith@example.com",
+      phoneNumber: "987-654-3210",
+    },
+    {
+      id: 3,
+      fullName: "Alice Johnson",
+      email: "alice.johnson@example.com",
+      phoneNumber: "555-555-5555",
+    },
   ];
 
   const providers = [
@@ -35,6 +50,10 @@ const Home = () => {
       address: "789 Oak St",
     },
   ];
+
+  const handleAdd = () => {
+    console.log("Add new user");
+  };
 
   const handleEdit = (id) => {
     console.log("Edit user with id: ", id);
@@ -83,9 +102,9 @@ const Home = () => {
   return (
     <BrowserRouter>
       <header>
-        <Link to="/login">Login (si)</Link>
-        <Link to="/">Usuarios</Link>
-        <Link to="/providers">Proveedores</Link>
+        <NavLink to="/login">Login (si)</NavLink>
+        <NavLink to="/">Usuarios</NavLink>
+        <NavLink to="/providers">Proveedores</NavLink>
       </header>
       
       <Route path="/login">
