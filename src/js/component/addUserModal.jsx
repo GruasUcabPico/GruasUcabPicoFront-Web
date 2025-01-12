@@ -57,7 +57,7 @@ function AddUserModal() {
               />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              Añadir
             </Button>
           </Form>
         </Modal.Body>

@@ -1,7 +1,8 @@
 import React from "react";
 import { Container, Row, Col, Table, Dropdown, Button } from "react-bootstrap";
-import AddUserModal from "../modal";
+import AddUserModal from "../addUserModal";
 import DeleteUserModal from "../deleteUserModal";
+import EditUserModal from "../editUserModal";
 
 const UsersCRUD = ({ users, onEdit, onDelete }) => {
   return (
@@ -38,8 +39,14 @@ const UsersCRUD = ({ users, onEdit, onDelete }) => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => onEdit(user.id)}>
-                      Editar
+                      <EditUserModal
+                        id={user.id}
+                        name={user.fullName}
+                        email={user.email}
+                        phoneNumber={user.phoneNumber}
+                      />
                     </Dropdown.Item>
+                    <Dropdown.Divider />
                     <Dropdown.Item onClick={() => onDelete(user.id)}>
                       <DeleteUserModal id={user.id} name={user.fullName} />
                     </Dropdown.Item>
