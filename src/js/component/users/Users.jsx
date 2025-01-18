@@ -1,5 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Table, Dropdown, Button } from "react-bootstrap";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
+
 import AddUserModal from "../addUserModal";
 import DeleteUserModal from "../deleteUserModal";
 import EditUserModal from "../editUserModal";

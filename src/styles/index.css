@@ -1,12 +1,32 @@
+header {
+    background-color: #f8f9fa;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
 
-/* 
+header a {
+    color: #333;
+    text-decoration: none;
+    padding: 5px;
+    display: inline-block;
+    border-right: 1px solid #ccc;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+header a:last-child {
+    border-right: none;
+}
 
-*/
+header h1 {
+    display: inline;
+    padding: 0 15px;
+}
+
+.active {
+    color: #eee;
+    background-color: #0d6efd;
+}
+
+.active:hover {
+    color: #fff;
+}

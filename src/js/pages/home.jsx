@@ -1,8 +1,11 @@
 import React from "react";
 import LoginForm from "../component/login/login";
 import RootLayout from "../pages/RootLayout";
+import Menu from "../pages/Menu";
+import Orders from "../pages/Orders";
 import UsersCRUD from "../component/users/Users";
 import ProvidersCRUD from "../component/providers/providers";
+import What from "../pages/what";
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 
 //check if user is logged in
@@ -66,14 +69,18 @@ const Home = () => {
   return (
     <BrowserRouter>
       <header>
+        <h1>UCABGruero</h1>
         <NavLink to="/login">Login (si)</NavLink>
-        <NavLink to="/">Usuarios</NavLink>
-        <NavLink to="/providers">Proveedores</NavLink>
+        <NavLink to="/">Menú principal</NavLink>
+        <NavLink to="/users">Usuarios</NavLink>
+        <NavLink to="/test">Proveedores</NavLink>
+        <NavLink to="/orders">Usuarios</NavLink>
       </header>
       <Routes>
         <Route path="login" element={<LoginForm />} />
+        <Route index element={<Menu />} />
         <Route
-          index
+          path="users"
           element={
             <UsersCRUD
               users={users}
@@ -83,15 +90,12 @@ const Home = () => {
           }
         />
         <Route
-          path="providers"
+          path="test"
           element={
-            <ProvidersCRUD
-              providers={providers}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
+            <What />
           }
         />
+        <Route path="orders" element={<Orders />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,46 +1,18 @@
 import React from "react";
 import { Container, Table, Dropdown } from "react-bootstrap";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
 const ProvidersCRUD = ({ providers, onEdit, onDelete }) => {
   return (
-    <Container>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {providers.map((provider) => (
-            <tr key={provider.id}>
-              <td>{provider.id}</td>
-              <td>{provider.name}</td>
-              <td>{provider.phoneNumber}</td>
-              <td>{provider.address}</td>
-              <td>
-                <Dropdown>
-                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                    Manage
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => onEdit(provider.id)}>
-                      Edit
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => onDelete(provider.id)}>
-                      Delete provider
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+        <APIProvider apiKey={AIzaSyCBZK2rXSKMDn9vM9d7f9LJ4G-MHwywJW4}>
+          <Map
+            style={{ width: "100vw", height: "100vh" }}
+            defaultCenter={{ lat: 22.54992, lng: 0 }}
+            defaultZoom={3}
+            gestureHandling={"greedy"}
+            disableDefaultUI={true}
+          />
+        </APIProvider>
   );
 };
 

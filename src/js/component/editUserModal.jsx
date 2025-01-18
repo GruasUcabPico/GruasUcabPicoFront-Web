@@ -31,7 +31,7 @@ function EditUserModal({ id, userName, userEmail, userPhoneNumber }) {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="addUser">
+            <Form.Group controlId="editUser">
               <Form.Label className="mt-2">Nombre</Form.Label>
               <Form.Control
                 type="text"
