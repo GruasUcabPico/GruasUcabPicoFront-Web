@@ -10,7 +10,7 @@ const CranesCRUD = ({ cranes, onAdd, onEdit, onDelete }) => {
     <Container>
       <Row className="mb-2">
         <Col>
-          <h1>Grúaas</h1>
+          <h1>Grúas</h1>
         </Col>
         <Col className="d-flex flex-row-reverse">
           <AddCraneModal />
