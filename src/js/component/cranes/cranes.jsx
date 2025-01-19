@@ -32,9 +32,11 @@ const CranesCRUD = ({ cranes, onAdd, onEdit, onDelete }) => {
           {cranes.map((crane) => (
             <tr key={crane.id}>
               <td>{crane.id}</td>
-              <td>{crane.fullName}</td>
-              <td>{crane.email}</td>
-              <td>{crane.phoneNumber}</td>
+              <td>{crane.brand}</td>
+              <td>{crane.model}</td>
+              <td>{crane.craneType}</td>
+              <td>{crane.year}</td>
+              <td>{crane.plate}</td>
               <td>
                 <Dropdown>
                   <Dropdown.Toggle variant="primary" id="dropdown-basic">
