@@ -14,12 +14,21 @@ const LoginForm = () => {
   const signIn = useSignIn();
   const handleSubmit = async (values) => {
       console.log(values);
-      signIn({
+
+      try {
+        const response = await axios.post('http://localhost:9053/api/users/login', values);
+        console.log("Si")
+        signIn({
           token: response.data.token,
           expiresIn: 2400,
           tokenType: 'Bearer',
           authState: { email: values.email },
-      })
+        })
+      } catch (error) {
+        console.log("No")
+        console.error('Error en login:', error);
+      }
+      
     };
 
   return (
@@ -43,7 +52,7 @@ const LoginForm = () => {
                   <h2>Inicio de sesión</h2>
                   <FormikForm onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
-                      <Form.Label>Dirección de correo electrónico</Form.Label>
+                      <Form.Label>Dirección de corrreo electrónico</Form.Label>
                       <Field
                         name="email"
                         type="email"

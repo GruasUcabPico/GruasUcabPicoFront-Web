@@ -7,8 +7,11 @@ import UsersCRUD from "../component/users/Users";
 import ProvidersCRUD from "../component/providers/providers";
 import What from "../pages/what";
 
-import AuthProvider from "react-auth-kit";
+import { AuthProvider as MyAuthProvider } from "../component/auth/AuthProvider";
+import ProtectedRoute from "../component/auth/ProtectedRoute";
+
 import createStore from 'react-auth-kit/createStore';
+import AuthProvider from "react-auth-kit";
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 
 //check if user is logged in
@@ -78,37 +81,39 @@ const Home = () => {
   };
 
   return (
-    <BrowserRouter>
-      <header>
-        <h1>UCABGruero</h1>
-        <NavLink to="/login">Login (si)</NavLink>
-        <NavLink to="/">Menú principal</NavLink>
-        <NavLink to="/users">Usuarios</NavLink>
-        <NavLink to="/test">Proveedores</NavLink>
-        <NavLink to="/orders">Usuarios</NavLink>
-      </header>
-      <Routes>
-        <Route path="login" element={<LoginForm />} />
-        <Route index element={<Menu />} />
-        <Route
-          path="users"
-          element={
-            <UsersCRUD
-              users={users}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-            />
-          }
-        />
-        <Route
-          path="test"
-          element={
-            <What />
-          }
-        />
-        <Route path="orders" element={<Orders />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider store={store}>
+      <BrowserRouter>
+        <header>
+          <h1>UCABGruero</h1>
+          <NavLink to="/login">Login (si)</NavLink>
+          <NavLink to="/">Menú principal</NavLink>
+          <NavLink to="/users">Usuarios</NavLink>
+          <NavLink to="/test">Proveedores</NavLink>
+          <NavLink to="/orders">Órdenes</NavLink>
+        </header>
+        <Routes>
+          <Route path="login" element={<LoginForm />} />
+          <Route index element={<Menu />} />
+          <Route
+            path="users"
+            element={
+              <UsersCRUD
+                users={users}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            }
+          />
+          <Route
+            path="test"
+            element={
+              <What />
+            }
+          />
+          <Route path="orders" element={<Orders />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 

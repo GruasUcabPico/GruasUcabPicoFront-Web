@@ -1,6 +1,14 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { useAuth } from "./auth/AuthProvider";
 import { ProtectedRoute } from "./auth/ProtectedRoute";
+
+import LoginForm from "../component/login/login";
+import RootLayout from "../pages/RootLayout";
+import Menu from "../pages/Menu";
+import Orders from "../pages/Orders";
+import UsersCRUD from "../component/users/Users";
+import ProvidersCRUD from "../component/providers/providers";
+import What from "../pages/what";
 
 const AppRoutes = () => {
   const { token } = useAuth();
@@ -23,32 +31,34 @@ const AppRoutes = () => {
       path: "/",
       element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
       children: [
-        {
-          path: "/",
-          element: <div>User Home Page</div>,
-        },
-        {
-          path: "/profile",
-          element: <div>User Profile</div>,
-        },
-        {
-          path: "/logout",
-          element: <div>Logout</div>,
-        },
+        <Fragment>
+            <Route index element={<Menu />} />
+            <Route
+              path="users"
+              element={
+                <UsersCRUD
+                  users={users}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              }
+            />
+            <Route
+              path="test"
+              element={
+                <What />
+              }
+            />
+            <Route path="orders" element={<Orders />} />
+        </Fragment>
       ],
     },
   ];
 
   // Define routes accessible only to non-authenticated users
   const routesForNotAuthenticatedOnly = [
-    {
-      path: "/",
-      element: <div>Home Page</div>,
-    },
-    {
-      path: "/login",
-      element: <div>Login</div>,
-    },
+    
+    <Route path="login" element={<LoginForm />} />
   ];
   
 
