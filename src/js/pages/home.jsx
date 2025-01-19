@@ -6,12 +6,23 @@ import Orders from "../pages/Orders";
 import UsersCRUD from "../component/users/Users";
 import ProvidersCRUD from "../component/providers/providers";
 import What from "../pages/what";
+
+import AuthProvider from "react-auth-kit";
+import createStore from 'react-auth-kit/createStore';
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 
 //check if user is logged in
 
 //create your first component
 const Home = () => {
+
+  const store = createStore({
+    authName:'_auth',
+    authType:'cookie',
+    cookieDomain: window.location.hostname,
+    cookieSecure: window.location.protocol === 'https:',
+  });
+  
   const users = [
     {
       id: 1,

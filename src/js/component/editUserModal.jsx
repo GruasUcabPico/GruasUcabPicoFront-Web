@@ -15,7 +15,10 @@ function EditUserModal({ id, userName, userEmail, userPhoneNumber }) {
   };
 
   const handleClose = () => setShow(false);
-  const handleShow = () => {
+  const handleShow = (name, email, phoneNumber) => {
+    setName(name);
+    setEmail(email);
+    setPhoneNumber(phoneNumber);
     setShow(true);
   };
 
