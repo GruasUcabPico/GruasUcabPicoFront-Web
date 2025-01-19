@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Container, Row, Col, Card, Form, Button, ListGroup } from 'react-bootstrap';
 import { Formik, Field, Form as FormikForm } from 'formik';
 
 const Orders = () => {
+    const [incidentLatitude, setIncidentLatitude] = useState('');
+    const [incidentLongitude, setIncidentLongitude] = useState('');
+    const [destinationLatitude, setDestinationLatitude] = useState('10.4642128');
+    const [destinationLongitude, setDestinationLongitude] = useState('-66.976491');
+    const [clientDNI, setClientDNI] = useState('');
+
     const orders = [
         { id: 1, name: 'Order 1', description: 'Description for order 1' },
         { id: 2, name: 'Order 2', description: 'Description for order 2' },
@@ -14,6 +20,7 @@ const Orders = () => {
         <Container fluid>
             <Row>
                 <Col md={4}>
+                    <h2>Órdenes publicadas</h2>
                     {orders.map(order => (
                         <Card key={order.id} className="mb-3">
                             <Card.Body>
@@ -25,7 +32,7 @@ const Orders = () => {
                 </Col>
                 <Col md={4}>
                     <Formik
-                        initialValues={{ orderName: '', orderDescription: '' }}
+                        initialValues={{ incidentLatitude, incidentLongitude, destinationLatitude, destinationLongitude, clientID: '' }}
                         onSubmit={(values, { setSubmitting }) => {
                             console.log(values);
                             setSubmitting(false);
@@ -33,16 +40,32 @@ const Orders = () => {
                     >
                         {({ isSubmitting }) => (
                             <FormikForm>
-                                <Form.Group>
-                                    <Form.Label>Order Name</Form.Label>
-                                    <Field type="text" name="orderName" className="form-control" />
+                                <Form.Group as={Row}>
+                                    <Col>
+                                        <Form.Label>Ubicación del incidente (latitud)</Form.Label>
+                                        <Field type="number" value={incidentLatitude} name="incidentLatitude" className="form-control" onChange={(e) => setIncidentLatitude(e.target.value)} />
+                                    </Col>
+                                    <Col>
+                                        <Form.Label>Ubicación del incidente (longitud)</Form.Label>
+                                        <Field type="number" value={incidentLongitude} name="incidentLongitude" className="form-control" onChange={(e) => setIncidentLongitude(e.target.value)} />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row}>
+                                    <Col>
+                                        <Form.Label>Ubicación destino (latitud)</Form.Label>
+                                        <Field type="number" value={destinationLatitude} name="destinationLatitude" className="form-control" onChange={(e) => setDestinationLatitude(e.target.value)} />
+                                    </Col>
+                                    <Col>
+                                        <Form.Label>Ubicación destino (longitud)</Form.Label>
+                                        <Field type="number" value={destinationLongitude} name="destinationLongitude" className="form-control" onChange={(e) => setDestinationLongitude(e.target.value)} />
+                                    </Col>
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Order Description</Form.Label>
-                                    <Field type="text" name="orderDescription" className="form-control" />
+                                    <Form.Label>Cédula del cliente</Form.Label>
+                                    <Field type="text" value={clientDNI }name="clientID" className="form-control" onChange={(e) => setClientDNI(e.target.value)} />
                                 </Form.Group>
-                                <Button type="submit" disabled={isSubmitting}>
-                                    Create Order
+                                <Button type="submit" disabled={isSubmitting} className='mt-3'>
+                                    Publicar orden
                                 </Button>
                             </FormikForm>
                         )}

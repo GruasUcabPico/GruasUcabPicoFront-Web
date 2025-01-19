@@ -4,6 +4,7 @@ import RootLayout from "../pages/RootLayout";
 import Menu from "../pages/Menu";
 import Orders from "../pages/Orders";
 import UsersCRUD from "../component/users/Users";
+import CranesCRUD from "../component/cranes/cranes";
 import ProvidersCRUD from "../component/providers/providers";
 import What from "../pages/what";
 
@@ -80,6 +81,33 @@ const Home = () => {
     console.log("Delete user with id: ", id);
   };
 
+  const cranes = [
+    {
+      id: 1,
+      brand: "Liebherr",
+      model: "LTM 11200-9.1",
+      craneType: "Mobile",
+      year: 2018,
+      plate: "ABC123",
+    },
+    {
+      id: 2,
+      brand: "Tadano",
+      model: "ATF 400G-6",
+      craneType: "All Terrain",
+      year: 2019,
+      plate: "XYZ789",
+    },
+    {
+      id: 3,
+      brand: "Grove",
+      model: "GMK6300L",
+      craneType: "All Terrain",
+      year: 2020,
+      plate: "LMN456",
+    },
+  ];
+
   return (
     <AuthProvider store={store}>
       <BrowserRouter>
@@ -90,6 +118,7 @@ const Home = () => {
           <NavLink to="/users">Usuarios</NavLink>
           <NavLink to="/test">Proveedores</NavLink>
           <NavLink to="/orders">Órdenes</NavLink>
+          <NavLink to="/cranes">Grúas</NavLink>
         </header>
         <Routes>
           <Route path="login" element={<LoginForm />} />
@@ -111,6 +140,7 @@ const Home = () => {
             }
           />
           <Route path="orders" element={<Orders />} />
+          <Route path="cranes" element={<CranesCRUD />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
