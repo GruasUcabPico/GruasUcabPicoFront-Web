@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useAuth } from "../provider/authProvider";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { useAuth } from "./auth/AuthProvider";
+import { ProtectedRoute } from "./auth/ProtectedRoute";
 
 const AppRoutes = () => {
   const { token } = useAuth();
@@ -50,6 +50,7 @@ const AppRoutes = () => {
       element: <div>Login</div>,
     },
   ];
+  
 
   // Combine and conditionally include routes based on authentication status
   const router = createBrowserRouter([
