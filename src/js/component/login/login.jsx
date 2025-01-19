@@ -3,6 +3,7 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { Formik, Field, ErrorMessage, Form as FormikForm} from "formik";
 import * as Yup from "yup";
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import axios from 'axios';
 
 const LoginForm = () => {
 
@@ -13,7 +14,7 @@ const LoginForm = () => {
 
   const signIn = useSignIn();
   const handleSubmit = async (values) => {
-      console.log(values);
+      console.log("The: ", values);
 
       try {
         const response = await axios.post('http://localhost:9053/api/users/login', values);
@@ -37,6 +38,7 @@ const LoginForm = () => {
       validationSchema={validationSchema}
       onSubmit={(values) => {
         console.log(values);
+        handleSubmit(values);
       }}
     >
       {({ handleSubmit, values }) => (
@@ -80,7 +82,7 @@ const LoginForm = () => {
                         className="text-danger"
                       />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" onClick={handleSubmit}>
                       Iniciar sesión
                     </Button>
                   </FormikForm>
