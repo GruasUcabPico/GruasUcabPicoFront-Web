@@ -6,7 +6,10 @@ import AddUserModal from "../addUserModal";
 import DeleteUserModal from "../deleteUserModal";
 import EditUserModal from "../editUserModal";
 
-const UsersCRUD = ({ users, onEdit, onDelete }) => {
+const UsersCRUD = ({ drivers, operators, onEdit, onDelete }) => {
+
+  const users = drivers.concat(operators);
+
   return (
     <Container>
       <Row className="mb-2">
@@ -41,16 +44,26 @@ const UsersCRUD = ({ users, onEdit, onDelete }) => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => onEdit(user.id)}>
-                      <EditUserModal
+                      <EditUswerModal
                         id={user.id}
                         name={user.fullName}
                         email={user.email}
                         phoneNumber={user.phoneNumber}
                       />
                     </Dropdown.Item>
+                    {drivers.some(driver => driver.id === user.id) && (
+                      <Dropdown.Item onClick={() => onEdit(user.id)}>
+                        <EditUserModal
+                          id={user.id}
+                          name={user.fullName}
+                          email={user.email}
+                          phoneNumber={user.phoneNumber}
+                        />
+                      </Dropdown.Item>
+                    )}
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={() => onDelete(user.id)}>
-                      <DeleteUserModal id={user.id} name={user.fullName} />
+                      <DeleteUswerModal id={user.id} name={user.fullName} />
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

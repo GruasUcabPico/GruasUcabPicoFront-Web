@@ -140,7 +140,16 @@ const Home = () => {
             }
           />
           <Route path="orders" element={<Orders />} />
-          <Route path="cranes" element={<CranesCRUD />} />
+          <Route 
+            path="cranes" 
+            element={
+              <CranesCRUD 
+                cranes={cranes}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+              } 
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

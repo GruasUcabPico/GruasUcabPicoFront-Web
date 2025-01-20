@@ -5,7 +5,7 @@ const What = () => (
   <APIProvider apiKey={'AIzaSyCBZK2rXSKMDn9vM9d7f9LJ4G-MHwywJW4'}>
     <Map
       style={{width: '50%', height: '300px'}}
-      defaultCenter={{lat: 22.54992, lng: 0}}
+      defaultCenter={{lat: 10.4642128, lng: -66.976491}}
       defaultZoom={10}
       gestureHandling={'greedy'}
       disableDefaultUI={true}

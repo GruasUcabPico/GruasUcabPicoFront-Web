@@ -4,6 +4,7 @@ import { Formik, Field, ErrorMessage, Form as FormikForm} from "formik";
 import * as Yup from "yup";
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -12,12 +13,13 @@ const LoginForm = () => {
     password: Yup.string().required("Contraseña es requerida"),
   });
 
+  const navigate = useNavigate();
   const signIn = useSignIn();
   const handleSubmit = async (values) => {
       console.log("The: ", values);
 
       try {
-        const response = await axios.post('http://localhost:9053/api/users/login', values);
+        const response = await axios.post('http://192.168.1.107:9053/api/users/login', values);
         console.log("Si")
         signIn({
           token: response.data.token,
@@ -29,6 +31,8 @@ const LoginForm = () => {
         console.log("No")
         console.error('Error en login:', error);
       }
+
+      navigate("/");
       
     };
 

@@ -46,14 +46,16 @@ const CranesCRUD = ({ cranes, onAdd, onEdit, onDelete }) => {
                     <Dropdown.Item onClick={() => onEdit(crane.id)}>
                       <EditCraneModal
                         id={crane.id}
-                        name={crane.fullName}
-                        email={crane.email}
-                        phoneNumber={crane.phoneNumber}
+                        brand={crane.brand}
+                        model={crane.model}
+                        type={crane.craneType}
+                        year={crane.year}
+                        plate={crane.plate}
                       />
                     </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={() => onDelete(crane.id)}>
-                      <DeleteCraneModal id={crane.id} name={crane.fullName} />
+                      <DeleteCraneModal id={crane.id} brand={crane.brand} model={crane.model} />
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
