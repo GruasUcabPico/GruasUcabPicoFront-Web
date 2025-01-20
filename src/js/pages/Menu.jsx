@@ -15,7 +15,7 @@ const Menu = () => {
                         </Link>
                     </Col>
                     <Col>
-                        <Link to="/users">
+                        <Link to="/crudmenu">
                             <Button variant="secondary" size="lg">
                                 Administrar datos
                             </Button>

@@ -1,8 +1,9 @@
 import React from "react";
 import LoginForm from "../component/login/login";
 import RootLayout from "../pages/RootLayout";
-import Menu from "../pages/Menu";
-import Orders from "../pages/Orders";
+import Menu from "./Menu";
+import Orders from "./Orders";
+import RateKMCRUD from "../component/ratekm/ratekm";
 import UsersCRUD from "../component/users/Users";
 import CranesCRUD from "../component/cranes/cranes";
 import ProvidersCRUD from "../component/providers/providers";
@@ -14,6 +15,7 @@ import ProtectedRoute from "../component/auth/ProtectedRoute";
 import createStore from 'react-auth-kit/createStore';
 import AuthProvider from "react-auth-kit";
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
+import CRUDMenu from "./CRUDMenu";
 
 //check if user is logged in
 
@@ -27,7 +29,7 @@ const Home = () => {
     cookieSecure: window.location.protocol === 'https:',
   });
   
-  const users = [
+  const drivers = [
     {
       id: 1,
       fullName: "John Doe",
@@ -48,24 +50,24 @@ const Home = () => {
     },
   ];
 
-  const providers = [
+  const operators = [
     {
-      id: 1,
-      name: "Provider One",
-      phoneNumber: "123-456-7890",
-      address: "123 Main St",
+      id: 4,
+      fullName: "Michael Brown",
+      email: "michael.brown@example.com",
+      phoneNumber: "111-222-3333",
     },
     {
-      id: 2,
-      name: "Provider Two",
-      phoneNumber: "987-654-3210",
-      address: "456 Elm St",
+      id: 5,
+      fullName: "Emily Davis",
+      email: "emily.davis@example.com",
+      phoneNumber: "444-555-6666",
     },
     {
-      id: 3,
-      name: "Provider Three",
-      phoneNumber: "555-555-5555",
-      address: "789 Oak St",
+      id: 6,
+      fullName: "David Wilson",
+      email: "david.wilson@example.com",
+      phoneNumber: "777-888-9999",
     },
   ];
 
@@ -108,17 +110,33 @@ const Home = () => {
     },
   ];
 
+  const rateKMs = [
+    {
+      id: 1,
+      coverageRadius: 10,
+      priceKM: 5.0,
+    },
+    {
+      id: 2,
+      coverageRadius: 20,
+      priceKM: 4.5,
+    },
+    {
+      id: 3,
+      coverageRadius: 30,
+      priceKM: 4.0,
+    },
+  ];
+
   return (
     <AuthProvider store={store}>
       <BrowserRouter>
         <header>
-          <h1>UCABGruero</h1>
-          <NavLink to="/login">Login (si)</NavLink>
+          <h1>GruasUCABPico</h1>
+          <NavLink to="/login">Login</NavLink>
           <NavLink to="/">Menú principal</NavLink>
-          <NavLink to="/users">Usuarios</NavLink>
-          <NavLink to="/test">Proveedores</NavLink>
           <NavLink to="/orders">Órdenes</NavLink>
-          <NavLink to="/cranes">Grúas</NavLink>
+          <NavLink to="/crudmenu">Administrar</NavLink>
         </header>
         <Routes>
           <Route path="login" element={<LoginForm />} />
@@ -127,7 +145,8 @@ const Home = () => {
             path="users"
             element={
               <UsersCRUD
-                users={users}
+                drivers={drivers}
+                operators={operators}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />
@@ -140,11 +159,22 @@ const Home = () => {
             }
           />
           <Route path="orders" element={<Orders />} />
+          <Route path="crudmenu" element={<CRUDMenu />} />
           <Route 
             path="cranes" 
             element={
               <CranesCRUD 
                 cranes={cranes}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+              } 
+          />
+          <Route 
+            path="ratekms" 
+            element={
+              <RateKMCRUD 
+                rates={rateKMs}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />

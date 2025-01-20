@@ -6,6 +6,7 @@ function AddUserModal() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [userType, setUserType] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,6 +56,10 @@ function AddUserModal() {
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
+            </Form.Group>
+            <Form.Group>
+              <Form.Check inline type={"radio"} label={"Conductor"} name={"role"} id={userType} />
+              <Form.Check inline type={"radio"} label={"Operador"} name={"role"} id={userType} />
             </Form.Group>
             <Button variant="primary" type="submit">
               Añadir

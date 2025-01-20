@@ -2,11 +2,39 @@ import React from "react";
 import { Container, Row, Col, Table, Dropdown, Button } from "react-bootstrap";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
-import AddUserModal from "../addUserModal";
-import DeleteUserModal from "../deleteUserModal";
-import EditUserModal from "../editUserModal";
+import AddUserModal from "./addUserModal";
+import DeleteUserModal from "./deleteUserModal";
+import EditUserModal from "./editUserModal";
+import AssignCraneModal from "./assignCraneModal";
 
 const UsersCRUD = ({ drivers, operators, onEdit, onDelete }) => {
+
+  const cranes = [
+    {
+      id: 1,
+      brand: "Liebherr",
+      model: "LTM 11200-9.1",
+      craneType: "Mobile",
+      year: 2018,
+      plate: "ABC123",
+    },
+    {
+      id: 2,
+      brand: "Tadano",
+      model: "ATF 400G-6",
+      craneType: "All Terrain",
+      year: 2019,
+      plate: "XYZ789",
+    },
+    {
+      id: 3,
+      brand: "Grove",
+      model: "GMK6300L",
+      craneType: "All Terrain",
+      year: 2020,
+      plate: "LMN456",
+    },
+  ];
 
   const users = drivers.concat(operators);
 
@@ -44,7 +72,7 @@ const UsersCRUD = ({ drivers, operators, onEdit, onDelete }) => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={() => onEdit(user.id)}>
-                      <EditUswerModal
+                      <EditUserModal
                         id={user.id}
                         name={user.fullName}
                         email={user.email}
@@ -53,17 +81,15 @@ const UsersCRUD = ({ drivers, operators, onEdit, onDelete }) => {
                     </Dropdown.Item>
                     {drivers.some(driver => driver.id === user.id) && (
                       <Dropdown.Item onClick={() => onEdit(user.id)}>
-                        <EditUserModal
+                        <AssignCraneModal
                           id={user.id}
-                          name={user.fullName}
-                          email={user.email}
-                          phoneNumber={user.phoneNumber}
+                          cranes={cranes}
                         />
                       </Dropdown.Item>
                     )}
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={() => onDelete(user.id)}>
-                      <DeleteUswerModal id={user.id} name={user.fullName} />
+                      <DeleteUserModal id={user.id} name={user.fullName} />
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

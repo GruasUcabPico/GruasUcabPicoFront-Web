@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-function DeleteUserModal({ id, name }) {
+function DeleteRateKMModal({ id  }) {
   const [show, setShow] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log({ name, email, phoneNumber });
+    console.log({ id });
     handleClose();
   };
 
@@ -17,14 +17,14 @@ function DeleteUserModal({ id, name }) {
   return (
     <>
       <Button variant="danger" onClick={handleShow}>
-        Eliminar usuario
+        Eliminar tasa
       </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton variant="danger">
-          <Modal.Title>Eliminar usuario</Modal.Title>
+          <Modal.Title>Eliminar tasa</Modal.Title>
         </Modal.Header>
-        <Modal.Body>¿Seguro de que desea eliminar a {name}?</Modal.Body>
+        <Modal.Body>¿Seguro de que desea eliminar esta tarifa?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             No, volver
@@ -38,4 +38,4 @@ function DeleteUserModal({ id, name }) {
   );
 }
 
-export default DeleteUserModal;
+export default DeleteRateKMModal;

@@ -18,7 +18,7 @@ const Orders = () => {
 
     return (
         <Container fluid>
-            <Row>
+            <Row className="justify-content-center">
                 <Col md={4}>
                     <h2>Órdenes publicadas</h2>
                     {orders.map(order => (
@@ -70,18 +70,6 @@ const Orders = () => {
                             </FormikForm>
                         )}
                     </Formik>
-                </Col>
-                <Col md={4}>
-                    <ListGroup>
-                        {drivers.map((driver, index) => (
-                            <ListGroup.Item key={index} className="d-flex align-items-center">
-                                <div className="circle bg-primary text-white mr-3" style={{ width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    {driver.charAt(0)}
-                                </div>
-                                {driver}
-                            </ListGroup.Item>
-                        ))}
-                    </ListGroup>
                 </Col>
             </Row>
         </Container>
