@@ -4,7 +4,7 @@ import { Formik, Field, ErrorMessage, Form as FormikForm} from "formik";
 import * as Yup from "yup";
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -27,12 +27,11 @@ const LoginForm = () => {
           tokenType: 'Bearer',
           authState: { email: values.email },
         })
+        navigate("/");
       } catch (error) {
         console.log("No")
         console.error('Error en login:', error);
       }
-
-      navigate("/");
       
     };
 
@@ -48,8 +47,9 @@ const LoginForm = () => {
       {({ handleSubmit, values }) => (
         <Row>
           <Col md={6} className="col-12 bg-primary text-center text-white">
-            <h1 className="text-center mt-5">UCAB</h1>
-            <h3 className="text-center">Gruero</h3>
+            <h3 className="text-center mt-5">Gruas</h3>
+            <h2 className="text-center">UCAB</h2>
+            <h1 className="text-center">Pico</h1>
           </Col>
           <Col>
             <Row className="justify-content-md-center min-vh-100">
@@ -90,6 +90,7 @@ const LoginForm = () => {
                       Iniciar sesión
                     </Button>
                   </FormikForm>
+                  <Card.Footer><Link to="/forgotPassword">¿Olvidó su contraseña?</Link></Card.Footer>
                 </Card>
               </Col>
             </Row>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import axios from "axios";
 
 function DeleteRateKMModal({ id  }) {
   const [show, setShow] = useState(false);
@@ -8,6 +9,11 @@ function DeleteRateKMModal({ id  }) {
     e.preventDefault();
     // Handle form submission logic here
     console.log({ id });
+    try {
+      axios.delete(`http://localhost:3000/RateKM/${id}`);
+    } catch (error) {
+      console.error(error);
+    };
     handleClose();
   };
 

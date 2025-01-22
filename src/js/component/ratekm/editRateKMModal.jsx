@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { Formik, Form as FormikForm, Field } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 function EditRateKMModal({ id, coverageRadius, priceKM }) {
     const [show, setShow] = useState(false);
@@ -44,6 +45,11 @@ function EditRateKMModal({ id, coverageRadius, priceKM }) {
                         validationSchema={validationSchema}
                         onSubmit={(values, { setSubmitting }) => {
                             console.log(values);
+                            try {
+                              axios.put(`http://localhost:3000/RateKM/${id}`);
+                            } catch (error) {
+                              console.error(error);
+                            };
                             setSubmitting(false);
                         }}
                     >

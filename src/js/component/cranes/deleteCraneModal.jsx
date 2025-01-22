@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
@@ -7,6 +8,11 @@ function DeleteCraneModal({ id, brand, model }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
+    try {
+      axios.delete(`http://localhost:3000/api/crane/${id}`);
+    } catch (error) {
+      console.error(error);
+    };
     console.log({ id, brand, model });
     handleClose();
   };

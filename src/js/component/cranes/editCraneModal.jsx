@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { Formik, Form as FormikForm, Field } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 function EditCraneModal({id,craneBrand,craneModel,craneType,craneYear,cranePlate}){
     const [show, setShow] = useState(false);
@@ -44,6 +45,11 @@ function EditCraneModal({id,craneBrand,craneModel,craneType,craneYear,cranePlate
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
                     console.log(values);
+                    try {
+                      axios.put(`http://localhost:3000/api/crane/${id}`);
+                    } catch (error) {
+                      console.error(error);
+                    };
                     setSubmitting(false);
                 }}
                 >

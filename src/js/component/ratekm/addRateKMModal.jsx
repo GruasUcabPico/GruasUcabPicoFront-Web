@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import axios from "axios";
 
 function AddRateKMModal() {
     const [show, setShow] = useState(false);
-    const [coverageRadius, setCoverageRadius] = useState("");
-    const [priceKM, setPriceKM] = useState("");
-
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission logic here
+        try {
+        axios.post("http://localhost:3000/RateKM", values)
+        } catch (error) {
+            console.log(error);
+        };
         console.log({ coverageRadius, priceKM });
         handleClose();
     };
@@ -27,29 +31,45 @@ function AddRateKMModal() {
                     <Modal.Title>Agregar nueva tarifa por KM</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="addRateKM">
-                            <Form.Label className="mt-2">Radio de cobertura</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Radio de cobertura"
-                                value={coverageRadius}
-                                onChange={(e) => setCoverageRadius(e.target.value)}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="formPriceKM">
-                            <Form.Label className="mt-2">Precio por KM</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Precio por KM"
-                                value={priceKM}
-                                onChange={(e) => setPriceKM(e.target.value)}
-                            />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Añadir
-                        </Button>
-                    </Form>
+                    <Formik
+                        initialValues={{ coverageRadius: '', priceKM: ''}}
+                        onSubmit={(values, { setSubmitting }) => {
+                            console.log(values);
+                            try {
+                                axios.post("http://localhost:3000/cranes", values)
+                            } catch (error) {
+                                console.log(error);
+                            };
+                            setSubmitting(false);
+                            handleClose();
+                        }}
+                    >
+                        {({ isSubmitting }) => (
+                            <Form>
+                                <div className="form-group">
+                                    <label htmlFor="coverageRadius">Radio de cobertura</label>
+                                    <Field
+                                        type="number"
+                                        name="coverageRadius"
+                                        className="form-control"
+                                    />
+                                    <ErrorMessage name="coverageRadius" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="priceKM">Precio por Km</label>
+                                    <Field
+                                        type="number"
+                                        name="priceKM"
+                                        className="form-control"
+                                    />
+                                    <ErrorMessage name="priceKM" component="div" className="invalid-feedback" />
+                                </div>
+                                <Button variant="primary" type="submit" disabled={isSubmitting}>
+                                    Submit
+                                </Button>
+                            </Form>
+                        )}
+                    </Formik>
                 </Modal.Body>
             </Modal>
         </>

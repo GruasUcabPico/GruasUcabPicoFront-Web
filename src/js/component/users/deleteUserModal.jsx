@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import axios from "axios";
 
-function DeleteUserModal({ id, name }) {
+function DeleteUserModal({ user }) {
   const [show, setShow] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log({ id, name });
+    console.log(values);
+    try {
+      axios.delete(`http://localhost:3000/api/users/${id}`);
+    } catch (error) {
+      console.error(error);
+    };
     handleClose();
   };
 
@@ -24,7 +30,7 @@ function DeleteUserModal({ id, name }) {
         <Modal.Header closeButton variant="danger">
           <Modal.Title>Eliminar usuario</Modal.Title>
         </Modal.Header>
-        <Modal.Body>¿Seguro de que desea eliminar a {name}?</Modal.Body>
+        <Modal.Body>¿Seguro de que desea eliminar a {user.name}?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             No, volver

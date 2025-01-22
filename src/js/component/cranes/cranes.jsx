@@ -5,7 +5,7 @@ import AddCraneModal from "./addCraneModal";
 import DeleteCraneModal from "./deleteCraneModal";
 import EditCraneModal from "./editCraneModal";
 
-const CranesCRUD = ({ cranes, onAdd, onEdit, onDelete }) => {
+const CranesCRUD = ({ cranes }) => {
   return (
     <Container>
       <Row className="mb-2">

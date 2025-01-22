@@ -7,7 +7,7 @@ import DeleteUserModal from "./deleteUserModal";
 import EditUserModal from "./editUserModal";
 import AssignCraneModal from "./assignCraneModal";
 
-const UsersCRUD = ({ drivers, operators, onEdit, onDelete }) => {
+const UsersCRUD = ({ drivers, operators }) => {
 
   const cranes = [
     {
@@ -71,25 +71,20 @@ const UsersCRUD = ({ drivers, operators, onEdit, onDelete }) => {
                     Administrar
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => onEdit(user.id)}>
-                      <EditUserModal
-                        id={user.id}
-                        name={user.fullName}
-                        email={user.email}
-                        phoneNumber={user.phoneNumber}
-                      />
+                    <Dropdown.Item >
+                      <EditUserModal user={user} />
                     </Dropdown.Item>
                     {drivers.some(driver => driver.id === user.id) && (
-                      <Dropdown.Item onClick={() => onEdit(user.id)}>
+                      <Dropdown.Item>
                         <AssignCraneModal
-                          id={user.id}
+                          user={user}
                           cranes={cranes}
                         />
                       </Dropdown.Item>
                     )}
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => onDelete(user.id)}>
-                      <DeleteUserModal id={user.id} name={user.fullName} />
+                    <Dropdown.Item>
+                      <DeleteUserModal user={user} />
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>

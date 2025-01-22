@@ -6,7 +6,7 @@ import AddRateKMModal from "./addRateKMModal";
 import DeleteRateKMModal from "./deleteRateKMModal";
 import EditRateKMModal from "./editRateKMModal";
 
-const RateKMCRUD = ({ rates, onEdit, onDelete }) => {
+const RateKMCRUD = ({ rates }) => {
 
   return (
     <Container>

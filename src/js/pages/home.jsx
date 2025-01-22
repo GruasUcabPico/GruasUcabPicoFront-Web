@@ -6,16 +6,13 @@ import Orders from "./Orders";
 import RateKMCRUD from "../component/ratekm/ratekm";
 import UsersCRUD from "../component/users/Users";
 import CranesCRUD from "../component/cranes/cranes";
-import ProvidersCRUD from "../component/providers/providers";
-import What from "../pages/what";
-
-import { AuthProvider as MyAuthProvider } from "../component/auth/AuthProvider";
-import ProtectedRoute from "../component/auth/ProtectedRoute";
 
 import createStore from 'react-auth-kit/createStore';
 import AuthProvider from "react-auth-kit";
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 import CRUDMenu from "./CRUDMenu";
+import ForgotPassword from "../component/login/forgotPassword";
+import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 
 //check if user is logged in
 
@@ -70,18 +67,6 @@ const Home = () => {
       phoneNumber: "777-888-9999",
     },
   ];
-
-  const handleAdd = () => {
-    console.log("Add new user");
-  };
-
-  const handleEdit = (id) => {
-    console.log("Edit user with id: ", id);
-  };
-
-  const handleDelete = (id) => {
-    console.log("Delete user with id: ", id);
-  };
 
   const cranes = [
     {
@@ -139,88 +124,41 @@ const Home = () => {
           <NavLink to="/crudmenu">Administrar</NavLink>
         </header>
         <Routes>
-          <Route path="login" element={<LoginForm />} />
-          <Route index element={<Menu />} />
-          <Route
-            path="users"
-            element={
-              <UsersCRUD
-                drivers={drivers}
-                operators={operators}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-            }
-          />
-          <Route
-            path="test"
-            element={
-              <What />
-            }
-          />
-          <Route path="orders" element={<Orders />} />
-          <Route path="crudmenu" element={<CRUDMenu />} />
-          <Route 
-            path="cranes" 
-            element={
-              <CranesCRUD 
-                cranes={cranes}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-              } 
-          />
-          <Route 
-            path="ratekms" 
-            element={
-              <RateKMCRUD 
-                rates={rateKMs}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-              } 
-          />
+          <Route element={<AuthOutlet fallbackPath="/login" />}>
+            <Route path="/" element={<Menu />} />
+            <Route
+              path="users"
+              element={
+                <UsersCRUD
+                  drivers={drivers}
+                  operators={operators}
+                />
+              }
+            />
+            <Route path="orders" element={<Orders />} />
+            <Route path="crudmenu" element={<CRUDMenu />} />
+            <Route 
+              path="cranes" 
+              element={
+                <CranesCRUD 
+                  cranes={cranes}
+                />
+                } 
+            />
+            <Route 
+              path="ratekms" 
+              element={
+                <RateKMCRUD rates={rateKMs} />
+                } 
+            />
+          </Route>
+        <Route path="login" element={<LoginForm />} />
+        <Route path="forgotPassword" element={<ForgotPassword />} />
+          
         </Routes>
       </BrowserRouter>
     </AuthProvider>
   );
 };
-
-/* Intento con routing
-const Home = () => {
-  return (
-    <BrowserRouter>
-      <header>
-        <NavLink to="/login">Login (si)</NavLink>
-        <NavLink to="/">Usuarios</NavLink>
-        <NavLink to="/providers">Proveedores</NavLink>
-      </header>
-      
-      <Route path="/login">
-        <LoginForm />
-      </Route>
-      <Route path="/">
-        <UsersCRUD users={users} onEdit={handleEdit} onDelete={handleDelete} />
-      </Route>
-      <Route path="/providers">
-        <ProvidersCRUD
-          providers={providers}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      </Route>
-    </BrowserRouter>
-  );
-
-  return (
-    //<UsersCRUD users={users} onEdit={handleEdit} onDelete={handleDelete} />
-    <ProvidersCRUD
-      providers={providers}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-    />
-  );
-};
-*/
 
 export default Home;
