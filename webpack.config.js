@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 
-const port = 3000;
+const port = 3001;
 let publicUrl = `ws://localhost:${port}/ws`;
 //only for gitpod
 if(process.env.GITPOD_WORKSPACE_URL){
