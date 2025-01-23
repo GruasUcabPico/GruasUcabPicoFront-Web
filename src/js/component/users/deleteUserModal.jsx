@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
+import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 
 function DeleteUserModal({ user }) {
   const [show, setShow] = useState(false);
+  const authHeaderFunction = useAuthHeader();
+  const authHeader = authHeaderFunction;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log(values);
+    console.log(user.name);
     try {
-      axios.delete(`http://localhost:3000/api/users/${id}`);
+      axios.delete(`http://localhost:9053/api/users/driver/${user.driverId}`, {headers: {Authorization: authHeader}});
     } catch (error) {
       console.error(error);
     };

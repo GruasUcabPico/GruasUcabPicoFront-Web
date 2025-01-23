@@ -19,15 +19,15 @@ const LoginForm = () => {
       console.log("The: ", values);
 
       try {
-        const response = await axios.post('http://192.168.1.107:9053/api/users/login', values);
-        console.log("Si")
+        const response = await axios.post('http://localhost:9053/api/users/login', values);
+        console.log("Si");
         signIn({
-          token: response.data.token,
-          expiresIn: 2400,
-          tokenType: 'Bearer',
-          authState: { email: values.email },
+          auth: {
+            token: response.data.token,
+          },
+          userState: {name: values.email, uid: 123456}
         })
-        navigate("/");
+        navigate("/menu");
       } catch (error) {
         console.log("No")
         console.error('Error en login:', error);

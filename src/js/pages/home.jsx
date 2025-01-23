@@ -23,7 +23,7 @@ const Home = () => {
     authName:'_auth',
     authType:'cookie',
     cookieDomain: window.location.hostname,
-    cookieSecure: window.location.protocol === 'https:',
+    cookieSecure: false,
   });
   
   const drivers = [
@@ -116,44 +116,34 @@ const Home = () => {
   return (
     <AuthProvider store={store}>
       <BrowserRouter>
-        <header>
-          <h1>GruasUCABPico</h1>
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/">Menú principal</NavLink>
-          <NavLink to="/orders">Órdenes</NavLink>
-          <NavLink to="/crudmenu">Administrar</NavLink>
-        </header>
         <Routes>
-          <Route element={<AuthOutlet fallbackPath="/login" />}>
-            <Route path="/" element={<Menu />} />
-            <Route
-              path="users"
-              element={
-                <UsersCRUD
-                  drivers={drivers}
-                  operators={operators}
-                />
-              }
-            />
-            <Route path="orders" element={<Orders />} />
-            <Route path="crudmenu" element={<CRUDMenu />} />
-            <Route 
-              path="cranes" 
-              element={
-                <CranesCRUD 
-                  cranes={cranes}
-                />
-                } 
-            />
-            <Route 
-              path="ratekms" 
-              element={
-                <RateKMCRUD rates={rateKMs} />
-                } 
-            />
+          <Route path="menu" element={<Menu />} />
+          <Route
+            path="users"
+            element={
+              <UsersCRUD />
+            }
+          />
+          <Route path="orders" element={<Orders />} />
+          <Route path="crudmenu" element={<CRUDMenu />}>
+          
           </Route>
-        <Route path="login" element={<LoginForm />} />
-        <Route path="forgotPassword" element={<ForgotPassword />} />
+          <Route 
+            path="cranes" 
+            element={
+              <CranesCRUD 
+                cranes={cranes}
+              />
+              } 
+          />
+          <Route 
+            path="ratekms" 
+            element={
+              <RateKMCRUD rates={rateKMs} />
+              } 
+          />
+          <Route index element={<LoginForm />} />
+          <Route path="forgotPassword" element={<ForgotPassword />} />
           
         </Routes>
       </BrowserRouter>

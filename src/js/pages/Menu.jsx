@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import Header from '../component/header';
 
 const Menu = () => {
     return (
         <Container className="text-center mt-5">
+            <Header />
             <h1>Bienvenido de vuelta, operador</h1>
             <Row className="mt-4 justify-content-center">
                     <Col>

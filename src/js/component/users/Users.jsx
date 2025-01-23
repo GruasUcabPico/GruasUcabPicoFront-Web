@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Dropdown, Button } from "react-bootstrap";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import axios from "axios";
+import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 
 import AddUserModal from "./addUserModal";
 import DeleteUserModal from "./deleteUserModal";
 import EditUserModal from "./editUserModal";
 import AssignCraneModal from "./assignCraneModal";
+import Header from '../header';
 
-const UsersCRUD = ({ drivers, operators }) => {
+const UsersCRUD = () => {
+
+  const authHeaderFunction = useAuthHeader();
+  const authHeader = authHeaderFunction;
 
   const cranes = [
     {
@@ -36,10 +42,26 @@ const UsersCRUD = ({ drivers, operators }) => {
     },
   ];
 
-  const users = drivers.concat(operators);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:9053/api/users/drivers?Page=1&PerPage=4&IsActive=true", {
+          headers: { Authorization: authHeader }
+        });
+        setUsers(response.data);
+      } catch (error) {
+        console.log("Error al obtener usuarios");
+      }
+    };
+
+    fetchUsers();
+  }, [authHeader]);
 
   return (
     <Container>
+            <Header />
       <Row className="mb-2">
         <Col>
           <h1>Usuarios</h1>
@@ -51,7 +73,7 @@ const UsersCRUD = ({ drivers, operators }) => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Cedula</th>
             <th>Nombre completo</th>
             <th>Correo electrónico</th>
             <th>Número telefónico</th>
@@ -59,12 +81,13 @@ const UsersCRUD = ({ drivers, operators }) => {
           </tr>
         </thead>
         <tbody>
+          {console.log(users)}
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.fullName}</td>
+              <td>{user.dni}</td>
+              <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>{user.phoneNumber}</td>
+              <td>{user.phone}</td>
               <td>
                 <Dropdown>
                   <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -74,14 +97,12 @@ const UsersCRUD = ({ drivers, operators }) => {
                     <Dropdown.Item >
                       <EditUserModal user={user} />
                     </Dropdown.Item>
-                    {drivers.some(driver => driver.id === user.id) && (
                       <Dropdown.Item>
                         <AssignCraneModal
                           user={user}
                           cranes={cranes}
                         />
                       </Dropdown.Item>
-                    )}
                     <Dropdown.Divider />
                     <Dropdown.Item>
                       <DeleteUserModal user={user} />

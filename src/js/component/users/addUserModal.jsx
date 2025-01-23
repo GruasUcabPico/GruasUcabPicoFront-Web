@@ -3,20 +3,22 @@ import { Modal, Button } from 'react-bootstrap';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
 
 const AddUserModal = () => {
     const [show, setShow] = useState(false);
-    // :3
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().email('Invalid email').required('Email is required'),
-        phoneNumber: Yup.string().required('Phone number is required'),
+        phone: Yup.string().required('Phone number is required'),
         role: Yup.string().oneOf(['Driver', 'Operator'], 'Invalid role').required('Role is required'),
     });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const authHeaderFunction = useAuthHeader();
+  const authHeader = authHeaderFunction;
 
     return (
         <>
@@ -30,24 +32,45 @@ const AddUserModal = () => {
               </Modal.Header>
               <Modal.Body>
                   <Formik
-                      initialValues={{ name: '', email: '', phoneNumber: ''}}
+                      initialValues={{ dni: '', name: '', email: '', password: '', phone: ''}}
                       validationSchema={validationSchema}
+                      
                       onSubmit={(values, { setSubmitting }) => {
-                          console.log(values);
+
                           let valuesSubmit = values;
-                          delete valuesSubmit.role;
+                          let endpointLink = "http://localhost:9053/api/users/";
+
+                          if (valuesSubmit.role === "Driver") {
+                            delete valuesSubmit.role;
+                            valuesSubmit.activeLicense = true;
+                            endpointLink = endpointLink + "drivers";
+                          } else {
+                            delete valuesSubmit.role;
+                            delete valuesSubmit.dni;
+                            endpointLink = endpointLink + "operators";
+                          }
+                          
                           try {
-                            axios.post("http://localhost:3000/users", valuesSubmit)
+                            axios.post(endpointLink, valuesSubmit, {headers: {Authorization: authHeader}});
                           } catch (error) {
                               console.log(error);
                           };
-                          console.log(values);
+
                           setSubmitting(false);
                           handleClose();
                       }}
                   >
                       {({ isSubmitting }) => (
                           <Form>
+                              <div className="form-group">
+                                  <label htmlFor="dni">Cedula</label>
+                                  <Field
+                                      type="text"
+                                      name="dni"
+                                      className="form-control"
+                                  />
+                                  <ErrorMessage name="ndni" component="div" className="invalid-feedback" />
+                              </div>
                               <div className="form-group">
                                   <label htmlFor="name">Nombre completo</label>
                                   <Field
@@ -67,13 +90,22 @@ const AddUserModal = () => {
                                   <ErrorMessage name="email" component="div" className="invalid-feedback" />
                               </div>
                               <div className="form-group">
-                                  <label htmlFor="phoneNumber">Número telefónico</label>
+                                  <label htmlFor="password">Contraseña</label>
                                   <Field
-                                      type="text"
-                                      name="phoneNumber"
+                                      type="password"
+                                      name="password"
                                       className="form-control"
                                   />
-                                  <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback" />
+                                  <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                              </div>
+                              <div className="form-group">
+                                  <label htmlFor="phone">Número telefónico</label>
+                                  <Field
+                                      type="text"
+                                      name="phone"
+                                      className="form-control"
+                                  />
+                                  <ErrorMessage name="phone" component="div" className="invalid-feedback" />
                               </div>
                               <div className="form-group">
                                 <div className="form-check">
